@@ -9,7 +9,9 @@ describe("Util test", function() {
         expect(utils.getNumberLocalizer).to.be.a("function");
         expect(utils.setDateLocalizer).to.be.a("function");
         expect(utils.setNumberLocalizer).to.be.a("function");
-        
+
+        expect(new utils.ComponentFactory()).to.be.an("object");
+
         done();
     })
 })
