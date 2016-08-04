@@ -1,2 +1,6 @@
-/src
-# Created by .ignore support plugin (hsz.mobi)
+src
+test
+tools
+.npmignore
+.idea
+.travis.yml
