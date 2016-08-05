@@ -2,27 +2,25 @@ import React from 'react';
 
 // component definitions
 export default class ComponentFactory {
+   
+    // this is expected to contain a property for each supported type
+    // and this property's value is expected to be an array of ComponentBuilder
+    fieldComponentsByType = { };
 
-    constructor() {
-        // this is expected to contain a property for each supported type
-        // and this property's value is expected to be an array of ComponentBuilder
-        this.fieldComponentsByType = { };
+    // this is expected to contain a property for each component definition
+    // and the value is expected to be the component definition itself
+    fieldComponentsById = { };
 
-        // this is expected to contain a property for each component definition
-        // and the value is expected to be the component definition itself
-        this.fieldComponentsById = { };
+    // defaultFieldComponents is expected to contain a property for each supported type
+    // and this property's value is expected to be the component definition id
+    defaultFieldComponents = { };
 
-        // defaultFieldComponents is expected to contain a property for each supported type
-        // and this property's value is expected to be the component definition id
-        this.defaultFieldComponents = { };
+    // this is expected to contain a property for each component definition
+    // and the value is expected to be the component definition itself
+    groupComponentsById = { };
 
-        // this is expected to contain a property for each component definition
-        // and the value is expected to be the component definition itself
-        this.groupComponentsById = { };
-
-        // The id of the default component for groups
-        this.defaultGroupComponentId = null;
-    }
+    // The id of the default component for groups
+    defaultGroupComponentId = null;
 
     /**
      * Validates the given metadata
@@ -40,7 +38,6 @@ export default class ComponentFactory {
      * @param types
      * @param component
      */
-
     registerFieldComponent(id, types, component) {
         // registers the component definition in each given type
         for(let i = 0; i < types.length; i++) {
@@ -73,8 +70,7 @@ export default class ComponentFactory {
      * @returns {{}|*}
      */
     getFieldComponents(type) {
-        if(!type)
-            return this.fieldComponentsByType;
+        if(!type) return this.fieldComponentsByType;
 
         return this.fieldComponentsByType[type];
     }
@@ -92,7 +88,7 @@ export default class ComponentFactory {
         const componentsForType = this.getFieldComponents(type);
 
         //Get the first component
-        const component = componentsForType.slice(0,0);
+        const component = componentsForType.slice(0, 0);
 
         if(!component)
             throw new Error(`Couldn't find any component for the given type. Type: ${type}. Make sure the proper component was registered in the ComponentFactory.`);
