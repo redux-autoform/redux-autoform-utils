@@ -26,8 +26,7 @@
   "homepage": "https://github.com/redux-autoform/redux-autoform-utils#readme",
   "dependencies": {
     "formato": "^1.0.5",
-    "react": "^15.2.1",
-    "underscore": "^1.8.3"
+    "react": "^15.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

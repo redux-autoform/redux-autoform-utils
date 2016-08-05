@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'underscore';
 
 // component definitions
 export default class ComponentFactory {
@@ -29,13 +28,10 @@ export default class ComponentFactory {
      * Validates the given metadata
      * @param metadata
      */
-    _validateMetadata(metadata) {
-        if(!metadata)
-            throw "Metadata should not be null or undefined";
-        if(!metadata.type)
-            throw "Metadata should have a type";
-        if(!metadata.name)
-            throw "Metadata should have a name";
+    static _validateMetadata(metadata) {
+        if(!metadata) throw "Metadata should not be null or undefined";
+        if(!metadata.type) throw "Metadata should have a type";
+        if(!metadata.name) throw "Metadata should have a name";
     }
 
     /**
@@ -47,13 +43,15 @@ export default class ComponentFactory {
 
     registerFieldComponent(id, types, component) {
         // registers the component definition in each given type
-        for(var i = 0; i < types.length; i++)
-        {
+        for(let i = 0; i < types.length; i++) {
             const type = types[i];
+
             if(!(type in this.fieldComponentsByType))
                 this.fieldComponentsByType[type] = [];
+
             this.fieldComponentsByType[type].push(component);
         }
+
         // registers the component definition
         this.fieldComponentsById[id] = component;
     }
@@ -77,6 +75,7 @@ export default class ComponentFactory {
     getFieldComponents(type) {
         if(!type)
             return this.fieldComponentsByType;
+
         return this.fieldComponentsByType[type];
     }
 
@@ -86,12 +85,18 @@ export default class ComponentFactory {
      */
     getDefaultFieldComponent(type) {
         if(!type) throw 'type should have a value';
+
         if(this.defaultFieldComponents[type])
             return this.getFieldComponent(this.defaultFieldComponents[type]);
+
         const componentsForType = this.getFieldComponents(type);
-        const component = _.first(componentsForType);
+
+        //Get the first component
+        const component = componentsForType.slice(0,0);
+
         if(!component)
             throw new Error(`Couldn't find any component for the given type. Type: ${type}. Make sure the proper component was registered in the ComponentFactory.`);
+
         return component;
     }
 
@@ -113,22 +118,25 @@ export default class ComponentFactory {
         
         this._validateMetadata(fieldComponentProps);
         let componentType;
+
         if(fieldComponentProps.component) {
             // if the metadata explicitly specify a component, let's use it
             componentType = this.getFieldComponent(fieldComponentProps.component);
-        }
-        else
-        {
+
+        } else {
             // If the metadata doesn't explicitly specify a component, let's return
             // the default component for type. If there's no default, let's take the first
             // that matches the type
             componentType = this.getDefaultFieldComponent(fieldComponentProps.type);
         }
+
         if(!componentType)
             throw new Error(`Could not resolve the component for the type. Type: ${fieldComponentProps.type}`);
 
+        let props = {...fieldComponentProps, ...fieldComponentProps.reduxFormProps};
+
         // if there's a 'reduxFormProps' metadata, it should be merged with the 
-        return React.createElement(componentType, Object.assign({}, fieldComponentProps, fieldComponentProps.reduxFormProps));
+        return React.createElement(componentType, props);
     }
 
     /**
@@ -142,9 +150,8 @@ export default class ComponentFactory {
 
     getGroupComponent(id) {
         let component = this.groupComponentsById[id];
-        if(!component) {
-            throw Error(`Could not resolve the group component. Component: ${id}`);
-        }
+        if(!component) throw Error(`Could not resolve the group component. Component: ${id}`);
+
         return component;
     }
 
@@ -170,24 +177,23 @@ export default class ComponentFactory {
      * @returns {*}
      */
     buildGroupComponent(groupComponentProps) {
-        if(!groupComponentProps) {
-            throw Error('The props parameter is required');
-        }
+        if(!groupComponentProps) throw Error('The props parameter is required');
+
 
         let componentType;
+
         if(groupComponentProps.component) {
             // if the metadata explicitly specify a component, let's use it
             componentType = this.getGroupComponent(groupComponentProps.component);
-        }
-        else
-        {
+
+        } else {
             // If the metadata doesn't explicitly specify a component, let's return
             // the default component for type. If there's no default, let's take the first
             // that matches the type
             componentType = this.getDefaultGroupComponent();
         }
-        if(!componentType)
-            throw new Error(`Could not resolve the component for the group`);
+
+        if(!componentType) throw new Error(`Could not resolve the component for the group`);
 
         return React.createElement(componentType, groupComponentProps);
     }
