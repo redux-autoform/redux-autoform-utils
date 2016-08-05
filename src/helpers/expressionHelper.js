@@ -1,4 +1,4 @@
-import { getDateLocalizer } from '../localization/dateLocalizer';
+import DateLocalizer from '../localization/DateLocalizer';
 import formato from 'formato';
 
 /**
@@ -6,7 +6,7 @@ import formato from 'formato';
  */
 export default function() {
     return {
-        dateLocalizer: getDateLocalizer(),
+        dateLocalizer: DateLocalizer.get(),
 
         format: function() {
             return formato.format(...arguments);

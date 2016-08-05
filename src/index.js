@@ -1,7 +1,7 @@
 /* Localizers */
-export * from './localization/dateLocalizer';
+export * from './localization/DateLocalizer';
 export * from './localization/momentLocalizer';
-export * from './localization/numberLocalizer';
+export * from './localization/NumberLocalizer';
 export * from './localization/numbroLocalizer';
 
 /* Helpers */

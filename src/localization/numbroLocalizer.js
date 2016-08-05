@@ -1,4 +1,4 @@
-import { setNumberLocalizer } from './numberLocalizer'
+import NumberLocalizer from './NumberLocalizer'
 
 export default function(numbro) {
 
@@ -31,7 +31,7 @@ export default function(numbro) {
         }
     };
 
-    setNumberLocalizer(localizer);
+    NumberLocalizer.set(localizer);
 
     return localizer;
 }

@@ -1,4 +1,4 @@
-import { setDateLocalizer } from './dateLocalizer'
+import DateLocalizer from './DateLocalizer'
 
 export default function(moment) {
     if (!moment) throw Error('\'moment\' should be truthy');
@@ -56,7 +56,7 @@ export default function(moment) {
         }
     };
 
-    setDateLocalizer(localizer);
+    DateLocalizer.set(localizer);
 
     return localizer;
 }
