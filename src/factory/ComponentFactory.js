@@ -88,7 +88,7 @@ export default class ComponentFactory {
         const componentsForType = this.getFieldComponents(type);
 
         //Get the first component
-        const component = componentsForType.slice(0, 0);
+        const component = componentsForType[0];
 
         if(!component)
             throw new Error(`Couldn't find any component for the given type. Type: ${type}. Make sure the proper component was registered in the ComponentFactory.`);
