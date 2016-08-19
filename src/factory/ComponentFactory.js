@@ -23,6 +23,12 @@ export default class ComponentFactory {
 
         // The id of the default component for groups
         this.defaultGroupComponentId = null;
+
+        // This this a list of Root components
+        this.rootComponentsById = { };
+
+        this.currentRoot = null;
+
     }
 
     /**
@@ -190,5 +196,21 @@ export default class ComponentFactory {
             throw new Error(`Could not resolve the component for the group`);
 
         return React.createElement(componentType, groupComponentProps);
+    }
+
+
+    // Allows to register a new Root component
+    registerRootComponent(id, component) {
+        this.rootComponentsById[id] = component;
+    }
+
+    // Allows to define the id of the current Root component that should be used
+    setCurrentRoot(id) {
+        this.currentRoot = id;
+    }
+
+    // Return the selected Root component in AutoformInternal
+    getRoot() {
+        return this.rootComponentsById[this.currentRoot];
     }
 }
