@@ -42,7 +42,7 @@
     "child-process-promise": "^2.0.3",
     "colors": "^1.1.2",
     "coveralls": "^2.11.11",
-    "fs-extra-promise": "^0.4.0",
+    "fs-extra-promise": "^1.0.1",
     "isparta": "^4.0.0",
     "mocha": "^3.0.0",
     "path": "^0.12.7",
