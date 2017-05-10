@@ -46,8 +46,13 @@ export default function(moment) {
 
         parse(value, format, culture) {
             if (!value) return undefined; // localizers should return undefined for empty inputs
-            const m = getMoment(culture, value, format);
-            if (m.isValid()) return m.toDate();
+            let m = getMoment(culture, value, format);
+
+            if(m.isValid()) return m.toDate();
+            else { //is ISO-8601?
+                m = getMoment(culture, value, moment.ISO_8601);
+                if(m.isValid()) return m.format(format);
+            }
             return null; // localizers should return nul for invalid inputs
         },
 

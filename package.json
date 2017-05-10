@@ -1,6 +1,6 @@
 {
   "name": "redux-autoform-utils",
-  "version": "1.0.5-experimental",
+  "version": "1.0.6-experimental",
   "description": "Common javascript files to all the redux-autoform related projects",
   "main": "./lib/index.js",
   "scripts": {
